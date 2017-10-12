@@ -1,0 +1,1839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="3.2" jmeter="3.3 r1808647">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="HDFLEET VEHICLE TRACKING" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+        <stringProp name="filename">D:\Software\JMETER\apache-jmeter-3.3\bin\resource\device_ids.csv</stringProp>
+        <stringProp name="fileEncoding"></stringProp>
+        <stringProp name="variableNames">device_id</stringProp>
+        <boolProp name="ignoreFirstLine">false</boolProp>
+        <stringProp name="delimiter">,</stringProp>
+        <boolProp name="quotedData">false</boolProp>
+        <boolProp name="recycle">true</boolProp>
+        <boolProp name="stopThread">false</boolProp>
+        <stringProp name="shareMode">shareMode.thread</stringProp>
+      </CSVDataSet>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">uat-30.trigent.com</stringProp>
+        <stringProp name="HTTPSampler.port">8080</stringProp>
+        <stringProp name="HTTPSampler.protocol">http</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <stringProp name="HTTPSampler.path">/hdfleet-data-sync/data/process</stringProp>
+        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Vaiable" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Authorization</stringProp>
+            <stringProp name="Header.value">Bearer ${__property(access_token)}</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Accept</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="username" elementType="Argument">
+            <stringProp name="Argument.name">username</stringProp>
+            <stringProp name="Argument.value">doppenheimer@trigent.com</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="password" elementType="Argument">
+            <stringProp name="Argument.name">password</stringProp>
+            <stringProp name="Argument.value">HDfl33t!!!!</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="twg" elementType="Argument">
+            <stringProp name="Argument.name">twg</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="AUTHORIZATION TOKEN" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1507033454000</longProp>
+        <longProp name="ThreadGroup.end_time">1507033454000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET TOKEN" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">    &#xd;
+     {&#xd;
+     	&quot;email&quot; : &quot;${username}&quot;,&#xd;
+     	&quot;password&quot; : &quot;${password}&quot;&#xd;
+ 	}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">uat-30.trigent.com</stringProp>
+          <stringProp name="HTTPSampler.port">8080</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/hdfleet/auth/login</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">access_token</stringProp>
+            <stringProp name="RegexExtractor.regex">&quot;accessToken&quot;:&quot;([a-z-0-9-]*?)&quot;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">Not Found</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="DRIVER" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1507118193000</longProp>
+        <longProp name="ThreadGroup.end_time">1507118193000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ADD DRIVER" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;name&quot;: &quot;Sanju&quot;,&#xd;
+  &quot;customerId&quot;: &quot;1&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/hdfleet/api/driver</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET A LIST OF DRIVERS" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/hdfleet/api/driver/all</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UPDATE DRIVER" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;id&quot;: 3,&#xd;
+  &quot;name&quot;: &quot;MR John M&quot;,&#xd;
+  &quot;customerId&quot;: 1&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/hdfleet/api/driver/3</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="VEHICLE" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">0</stringProp>
+        <longProp name="ThreadGroup.start_time">1505713839000</longProp>
+        <longProp name="ThreadGroup.end_time">1505713839000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ADD VIHICLE" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">&#xd;
+{&#xd;
+  &quot;customerId&quot;: &quot;1&quot;,&#xd;
+  &quot;name&quot;: &quot;Tata Safari&quot;,&#xd;
+  &quot;fleetId&quot;: 1,&#xd;
+  &quot;driverId&quot;: &quot;2&quot;,&#xd;
+  &quot;vin&quot;: &quot;&quot;,&#xd;
+  &quot;licencePlateNumber&quot;: &quot;&quot;,&#xd;
+  &quot;realOdometerReading&quot;: &quot;&quot;,&#xd;
+  &quot;recorderId&quot;: &quot;KSMA81601179&quot;,&#xd;
+  &quot;modelOfGpsUnit&quot;: &quot;&quot;,&#xd;
+  &quot;gpsDeviceStatus&quot;: &quot;true&quot;,&#xd;
+  &quot;serialNumber&quot;: &quot;&quot;,&#xd;
+  &quot;tenantId&quot;: &quot;5da51faa-9f67-4454-a07c-a6dc01276f473&quot;,&#xd;
+  &quot;deviceId&quot;: &quot;4ffccbb2-4e41-488d-acaa-a6dc014d5247&quot;,&#xd;
+  &quot;imei&quot;: &quot;&quot;&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">hdfleet/api/vehicle</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">deviceId should be unique</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">vehicle.csv</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <boolProp name="quotedData">true</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="variableNames">deviceId,tenantId,fleetId,driverId,pictureUrl,insurancePolicyNumber,firmwareOfDevice,imei,macAddressWirelessCard,serialNumber,name,recorderId</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">vehicle_id</stringProp>
+            <stringProp name="RegexExtractor.regex">^{&quot;id&quot;:(\d*?),</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">Not Found</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET A VEHICLE" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/hdfleet/api/vehicle/${vehicle_id}</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET A LIST OF VEHICLE" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">hdfleet/api/vehicle</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="CREATE TRIP BY PROTO1" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">2</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">2</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1507126574000</longProp>
+        <longProp name="ThreadGroup.end_time">1507126574000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="IGNITION ON ${__threadNum()}" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+  	{&#xd;
+		&quot;MediaURLs&quot;: null,&#xd;
+		&quot;EventLogID&quot;: &quot;6d06aaf4-a4c8-45a4-950f-7c498ceecc50&quot;,&#xd;
+		&quot;Altitude&quot;: 192,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__javaScript(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;IgnitionOn&quot;,&#xd;
+		&quot;Heading&quot;: 189,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06596,&#xd;
+		&quot;Longitude&quot;: -97.07951,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">IgnitionOn</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DEVICE ONLINE" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: null,&#xd;
+		&quot;EventLogID&quot;: &quot;4f4d4f75-5897-496f-ad0a-bbb8e5dbaaae&quot;,&#xd;
+		&quot;Altitude&quot;: 192,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;DeviceOnline&quot;,&#xd;
+		&quot;Heading&quot;: 189,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06596,&#xd;
+		&quot;Longitude&quot;: -97.07951,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">DeviceOnline</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[	&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: null,&#xd;
+		&quot;Altitude&quot;: 191,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: &quot;90&quot;,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06640579894158,&#xd;
+		&quot;Longitude&quot;: -97.07346394658089,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 100,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">LiveTrack</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PANIC BUTTON" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;EventLogID&quot;: &quot;aa7b9c4e-3365-4fc6-b55d-5cfe381e94d2&quot;,&#xd;
+		&quot;Altitude&quot;: 198,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;PanicButton&quot;,&#xd;
+		&quot;Heading&quot;: 103,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06640579894158,&#xd;
+		&quot;Longitude&quot;: -97.07346394658089,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;MediaURLs&quot;: [{&#xd;
+				&quot;Camera&quot;: 1,&#xd;
+				&quot;Altitude&quot;: 198,&#xd;
+				&quot;EndDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;Heading&quot;: 103,&#xd;
+				&quot;Latitude&quot;: 33.03613,&#xd;
+				&quot;Longitude&quot;: -97.07085,&#xd;
+				&quot;MDTURL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/cbcc9b5f-98be-4986-8342-b84e9e64eb39.mdt&quot;,&#xd;
+				&quot;Speed&quot;: 0,&#xd;
+				&quot;StartDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;URL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/f6c5df51-10fa-490d-9b13-9e631faa1949.jpg&quot;&#xd;
+			}, {&#xd;
+				&quot;Camera&quot;: 2,&#xd;
+				&quot;Altitude&quot;: 198,&#xd;
+				&quot;EndDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;Heading&quot;: 103,&#xd;
+				&quot;Latitude&quot;: 33.03613,&#xd;
+				&quot;Longitude&quot;: -97.07085,&#xd;
+				&quot;MDTURL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/cbcc9b5f-98be-4986-8342-b84e9e64eb39.mdt&quot;,&#xd;
+				&quot;Speed&quot;: 0,&#xd;
+				&quot;StartDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;URL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/2bb85cda-b6ae-4836-91cc-9d50811db7c2.jpg&quot;&#xd;
+			}&#xd;
+		]&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">PanicButton</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: null,&#xd;
+		&quot;Altitude&quot;: 190,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: &quot;90&quot;,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06636983421201,&#xd;
+		&quot;Longitude&quot;: -97.07074988633394,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">LiveTrack</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	 {&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: null,&#xd;
+		&quot;Altitude&quot;: 184,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: &quot;90&quot;,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.0663518518417,&#xd;
+		&quot;Longitude&quot;: -97.06820715218782,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">LiveTrack</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="MANUAL BACKUP" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;EventLogID&quot;: &quot;aa7b9c4e-3365-4fc6-b55d-5cfe381e94d2&quot;,&#xd;
+		&quot;Altitude&quot;: 198,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;ManualBackup&quot;,&#xd;
+		&quot;Heading&quot;: 103,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.03613,&#xd;
+		&quot;Longitude&quot;: -97.07085,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: &quot;2f1a065f-cdb5-4e5e-9e51-cb025cc5a9d8&quot;,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;MediaURLs&quot;: [{&#xd;
+				&quot;Camera&quot;: 1,&#xd;
+				&quot;Altitude&quot;: 188,&#xd;
+				&quot;EndDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;Heading&quot;: 2,&#xd;
+				&quot;Latitude&quot;: 33.04021,&#xd;
+				&quot;Longitude&quot;: -97.06939,&#xd;
+				&quot;MDTURL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/f6890378-cefd-460d-af17-bc2ce86506c7.mdt&quot;,&#xd;
+				&quot;Speed&quot;: 99,&#xd;
+				&quot;StartDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;URL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/973520f7-23a8-47e6-aea7-b68da4c4a527.mp4&quot;&#xd;
+			}, {&#xd;
+				&quot;Camera&quot;: 2,&#xd;
+				&quot;Altitude&quot;: 188,&#xd;
+				&quot;EndDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;Heading&quot;: 2,&#xd;
+				&quot;Latitude&quot;: 33.04021,&#xd;
+				&quot;Longitude&quot;: -97.06939,&#xd;
+				&quot;MDTURL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/f6890378-cefd-460d-af17-bc2ce86506c7.mdt&quot;,&#xd;
+				&quot;Speed&quot;: 99,&#xd;
+				&quot;StartDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;URL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/652b1b14-3dda-416b-b3e8-d1015c9126e8.mp4&quot;&#xd;
+			}&#xd;
+		]&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">LiveTrack</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: null,&#xd;
+		&quot;Altitude&quot;: 186,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: 92,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06630689589989,&#xd;
+		&quot;Longitude&quot;: -97.0649241283536,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">LiveTrack</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: null,&#xd;
+		&quot;Altitude&quot;: 187,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: &quot;270&quot;,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.066333869467734,&#xd;
+		&quot;Longitude&quot;: -97.06713426858187,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+	&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: null,&#xd;
+		&quot;Altitude&quot;: 189,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: &quot;270&quot;,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06631588709007,&#xd;
+		&quot;Longitude&quot;: -97.0701490715146,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	 {&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: &quot;5c07e3ab-b617-43f2-922b-b5ebc68d845e&quot;,&#xd;
+		&quot;Altitude&quot;: 189,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: &quot;270&quot;,&#xd;
+		&quot;IgnitionOn&quot;: false,&#xd;
+		&quot;Latitude&quot;: 33.06642378130085,&#xd;
+		&quot;Longitude&quot;: -97.0777628570795,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: &quot;fe551531-0f7a-4488-85b9-fed7952ccf9c&quot;,&#xd;
+		&quot;Altitude&quot;: 188,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: 91,&#xd;
+		&quot;IgnitionOn&quot;: false,&#xd;
+		&quot;Latitude&quot;: 33.06594,&#xd;
+		&quot;Longitude&quot;: -97.07954,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="IGNITION OFF" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"> [&#xd;
+ 	{&#xd;
+		&quot;MediaURLs&quot;: null,&#xd;
+		&quot;EventLogID&quot;: &quot;3c11f11c-0991-4e24-93eb-85a0e949a4c8&quot;,&#xd;
+		&quot;Altitude&quot;: 188,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;IgnitionOff&quot;,&#xd;
+		&quot;Heading&quot;: 91,&#xd;
+		&quot;IgnitionOn&quot;: false,&#xd;
+		&quot;Latitude&quot;: 33.06594,&#xd;
+		&quot;Longitude&quot;: -97.07954,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DEVICE OFFLINE" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	 {&#xd;
+		&quot;MediaURLs&quot;: null,&#xd;
+		&quot;EventLogID&quot;: &quot;6dce8dd6-c1df-4216-9955-fbb2840109dc&quot;,&#xd;
+		&quot;Altitude&quot;: 189,&#xd;
+		&quot;DeviceID&quot;: &quot;0ceac7fe-4ee9-422b-a78c-a6dc014d2e1a&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;DeviceOffline&quot;,&#xd;
+		&quot;Heading&quot;: 265,&#xd;
+		&quot;IgnitionOn&quot;: false,&#xd;
+		&quot;Latitude&quot;: 33.06594,&#xd;
+		&quot;Longitude&quot;: -97.07954,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+      <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="false">
+        <stringProp name="ConstantTimer.delay">10000</stringProp>
+      </ConstantTimer>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="CREATE TRIP BY TWG1" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">2</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">2</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1507732421000</longProp>
+        <longProp name="ThreadGroup.end_time">1507732421000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="IGNITION ON" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+  	{&#xd;
+		&quot;MediaURLs&quot;: null,&#xd;
+		&quot;EventLogID&quot;: &quot;6d06aaf4-a4c8-45a4-950f-7c498ceecc50&quot;,&#xd;
+		&quot;Altitude&quot;: 192,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__javaScript(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;IgnitionOn&quot;,&#xd;
+		&quot;Heading&quot;: 189,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06596,&#xd;
+		&quot;Longitude&quot;: -97.07951,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DEVICE ONLINE" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: null,&#xd;
+		&quot;EventLogID&quot;: &quot;4f4d4f75-5897-496f-ad0a-bbb8e5dbaaae&quot;,&#xd;
+		&quot;Altitude&quot;: 192,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;DeviceOnline&quot;,&#xd;
+		&quot;Heading&quot;: 189,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06596,&#xd;
+		&quot;Longitude&quot;: -97.07951,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">DeviceOnline</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[	&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: null,&#xd;
+		&quot;Altitude&quot;: 191,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: &quot;90&quot;,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06640579894158,&#xd;
+		&quot;Longitude&quot;: -97.07346394658089,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 100,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">LiveTrack</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PANIC BUTTON" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;EventLogID&quot;: &quot;aa7b9c4e-3365-4fc6-b55d-5cfe381e94d2&quot;,&#xd;
+		&quot;Altitude&quot;: 198,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;PanicButton&quot;,&#xd;
+		&quot;Heading&quot;: 103,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06640579894158,&#xd;
+		&quot;Longitude&quot;: -97.07346394658089,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;MediaURLs&quot;: [{&#xd;
+				&quot;Camera&quot;: 1,&#xd;
+				&quot;Altitude&quot;: 198,&#xd;
+				&quot;EndDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;Heading&quot;: 103,&#xd;
+				&quot;Latitude&quot;: 33.03613,&#xd;
+				&quot;Longitude&quot;: -97.07085,&#xd;
+				&quot;MDTURL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/cbcc9b5f-98be-4986-8342-b84e9e64eb39.mdt&quot;,&#xd;
+				&quot;Speed&quot;: 0,&#xd;
+				&quot;StartDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;URL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/f6c5df51-10fa-490d-9b13-9e631faa1949.jpg&quot;&#xd;
+			}, {&#xd;
+				&quot;Camera&quot;: 2,&#xd;
+				&quot;Altitude&quot;: 198,&#xd;
+				&quot;EndDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;Heading&quot;: 103,&#xd;
+				&quot;Latitude&quot;: 33.03613,&#xd;
+				&quot;Longitude&quot;: -97.07085,&#xd;
+				&quot;MDTURL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/cbcc9b5f-98be-4986-8342-b84e9e64eb39.mdt&quot;,&#xd;
+				&quot;Speed&quot;: 0,&#xd;
+				&quot;StartDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;URL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/2bb85cda-b6ae-4836-91cc-9d50811db7c2.jpg&quot;&#xd;
+			}&#xd;
+		]&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">PanicButton</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: null,&#xd;
+		&quot;Altitude&quot;: 190,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: &quot;90&quot;,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06636983421201,&#xd;
+		&quot;Longitude&quot;: -97.07074988633394,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">LiveTrack</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	 {&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: null,&#xd;
+		&quot;Altitude&quot;: 184,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: &quot;90&quot;,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.0663518518417,&#xd;
+		&quot;Longitude&quot;: -97.06820715218782,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">LiveTrack</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="MANUAL BACKUP" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;EventLogID&quot;: &quot;aa7b9c4e-3365-4fc6-b55d-5cfe381e94d2&quot;,&#xd;
+		&quot;Altitude&quot;: 198,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;ManualBackup&quot;,&#xd;
+		&quot;Heading&quot;: 103,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.03613,&#xd;
+		&quot;Longitude&quot;: -97.07085,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: &quot;2f1a065f-cdb5-4e5e-9e51-cb025cc5a9d8&quot;,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;MediaURLs&quot;: [{&#xd;
+				&quot;Camera&quot;: 1,&#xd;
+				&quot;Altitude&quot;: 188,&#xd;
+				&quot;EndDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;Heading&quot;: 2,&#xd;
+				&quot;Latitude&quot;: 33.04021,&#xd;
+				&quot;Longitude&quot;: -97.06939,&#xd;
+				&quot;MDTURL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/f6890378-cefd-460d-af17-bc2ce86506c7.mdt&quot;,&#xd;
+				&quot;Speed&quot;: 99,&#xd;
+				&quot;StartDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;URL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/973520f7-23a8-47e6-aea7-b68da4c4a527.mp4&quot;&#xd;
+			}, {&#xd;
+				&quot;Camera&quot;: 2,&#xd;
+				&quot;Altitude&quot;: 188,&#xd;
+				&quot;EndDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;Heading&quot;: 2,&#xd;
+				&quot;Latitude&quot;: 33.04021,&#xd;
+				&quot;Longitude&quot;: -97.06939,&#xd;
+				&quot;MDTURL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/f6890378-cefd-460d-af17-bc2ce86506c7.mdt&quot;,&#xd;
+				&quot;Speed&quot;: 99,&#xd;
+				&quot;StartDateTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+				&quot;URL&quot;: &quot;/SmartWitness/RecorderService/GetDataFile/5da51faa-9f67-4454-a07c-a6dc01276f31/652b1b14-3dda-416b-b3e8-d1015c9126e8.mp4&quot;&#xd;
+			}&#xd;
+		]&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">LiveTrack</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: null,&#xd;
+		&quot;Altitude&quot;: 186,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: 92,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06630689589989,&#xd;
+		&quot;Longitude&quot;: -97.0649241283536,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">LiveTrack</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: null,&#xd;
+		&quot;Altitude&quot;: 187,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: &quot;270&quot;,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.066333869467734,&#xd;
+		&quot;Longitude&quot;: -97.06713426858187,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+	&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: null,&#xd;
+		&quot;Altitude&quot;: 189,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: &quot;270&quot;,&#xd;
+		&quot;IgnitionOn&quot;: true,&#xd;
+		&quot;Latitude&quot;: 33.06631588709007,&#xd;
+		&quot;Longitude&quot;: -97.0701490715146,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	 {&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: &quot;5c07e3ab-b617-43f2-922b-b5ebc68d845e&quot;,&#xd;
+		&quot;Altitude&quot;: 189,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: &quot;270&quot;,&#xd;
+		&quot;IgnitionOn&quot;: false,&#xd;
+		&quot;Latitude&quot;: 33.06642378130085,&#xd;
+		&quot;Longitude&quot;: -97.0777628570795,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="LIVE TRACK" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	{&#xd;
+		&quot;MediaURLs&quot;: [],&#xd;
+		&quot;EventLogID&quot;: &quot;fe551531-0f7a-4488-85b9-fed7952ccf9c&quot;,&#xd;
+		&quot;Altitude&quot;: 188,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;LiveTrack&quot;,&#xd;
+		&quot;Heading&quot;: 91,&#xd;
+		&quot;IgnitionOn&quot;: false,&#xd;
+		&quot;Latitude&quot;: 33.06594,&#xd;
+		&quot;Longitude&quot;: -97.07954,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="IGNITION OFF" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"> [&#xd;
+ 	{&#xd;
+		&quot;MediaURLs&quot;: null,&#xd;
+		&quot;EventLogID&quot;: &quot;3c11f11c-0991-4e24-93eb-85a0e949a4c8&quot;,&#xd;
+		&quot;Altitude&quot;: 188,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;IgnitionOff&quot;,&#xd;
+		&quot;Heading&quot;: 91,&#xd;
+		&quot;IgnitionOn&quot;: false,&#xd;
+		&quot;Latitude&quot;: 33.06594,&#xd;
+		&quot;Longitude&quot;: -97.07954,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DEVICE OFFLINE" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+	 {&#xd;
+		&quot;MediaURLs&quot;: null,&#xd;
+		&quot;EventLogID&quot;: &quot;6dce8dd6-c1df-4216-9955-fbb2840109dc&quot;,&#xd;
+		&quot;Altitude&quot;: 189,&#xd;
+		&quot;DeviceID&quot;: &quot;${device_id}&quot;,&#xd;
+		&quot;EventData&quot;: null,&#xd;
+		&quot;EventTime&quot;: &quot;${__BeanShell(java.time.Instant.now().toString())}&quot;,&#xd;
+		&quot;EventType&quot;: &quot;DeviceOffline&quot;,&#xd;
+		&quot;Heading&quot;: 265,&#xd;
+		&quot;IgnitionOn&quot;: false,&#xd;
+		&quot;Latitude&quot;: 33.06594,&#xd;
+		&quot;Longitude&quot;: -97.07954,&#xd;
+		&quot;RecorderID&quot;: &quot;KSMA81601378&quot;,&#xd;
+		&quot;RequestID&quot;: null,&#xd;
+		&quot;Speed&quot;: 0,&#xd;
+		&quot;TSPSerialNumber&quot;: &quot;&quot;,&#xd;
+		&quot;currentEvent&quot;: false&#xd;
+	}&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="false">
+        <stringProp name="ConstantTimer.delay">300</stringProp>
+      </ConstantTimer>
+      <hashTree/>
+    </hashTree>
+    <WorkBench guiclass="WorkBenchGui" testclass="WorkBench" testname="WorkBench" enabled="true">
+      <boolProp name="WorkBench.save">true</boolProp>
+    </WorkBench>
+    <hashTree>
+      <ProxyControl guiclass="ProxyControlGui" testclass="ProxyControl" testname="HTTP(S) Test Script Recorder" enabled="true">
+        <stringProp name="ProxyControlGui.port">8888</stringProp>
+        <collectionProp name="ProxyControlGui.exclude_list"/>
+        <collectionProp name="ProxyControlGui.include_list"/>
+        <boolProp name="ProxyControlGui.capture_http_headers">true</boolProp>
+        <intProp name="ProxyControlGui.grouping_mode">0</intProp>
+        <boolProp name="ProxyControlGui.add_assertion">false</boolProp>
+        <stringProp name="ProxyControlGui.sampler_type_name"></stringProp>
+        <boolProp name="ProxyControlGui.sampler_redirect_automatically">false</boolProp>
+        <boolProp name="ProxyControlGui.sampler_follow_redirects">true</boolProp>
+        <boolProp name="ProxyControlGui.use_keepalive">true</boolProp>
+        <boolProp name="ProxyControlGui.sampler_download_images">false</boolProp>
+        <stringProp name="ProxyControlGui.proxy_prefix_http_sampler_name"></stringProp>
+        <stringProp name="ProxyControlGui.proxy_pause_http_sampler"></stringProp>
+        <boolProp name="ProxyControlGui.notify_child_sl_filtered">true</boolProp>
+        <boolProp name="ProxyControlGui.regex_match">false</boolProp>
+        <stringProp name="ProxyControlGui.content_type_include"></stringProp>
+        <stringProp name="ProxyControlGui.content_type_exclude"></stringProp>
+      </ProxyControl>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
